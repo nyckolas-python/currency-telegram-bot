@@ -1,16 +1,8 @@
 # Makefile
 #!/bin/bash
 
-shell:
-	echo "source ~/.bashrc" >> ~/.bash_history
-	poetry shell
-	source ~/.bashrc
-
 start: 
-	poetry run python
-	
-install_guni:
-	poetry add gunicorn --dev
+	poetry run app
 
 update:
 	sudo apt update
