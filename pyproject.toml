@@ -7,6 +7,8 @@ authors = ["nyckolas <nyckolas.python@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 aiogram = "^2.21"
+monobank = "^0.4.4"
+schedule = "^1.1.0"
 
 
 [tool.poetry.dev-dependencies]
