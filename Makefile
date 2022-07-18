@@ -2,7 +2,7 @@
 #!/bin/bash
 
 start:
-	export TELEGRAM_API_TOKEN="5449083361:AAGyNUlZZssw1NraEIggf1dP0m9R-89lGzQ" && \
+	export TELEGRAM_API_TOKEN="5233294778:AAHXwcHCYIxTFKXYdiD3WAfGqzH89o1TLYc" && \
 	export MONOBANK_API_TOKEN="uVcD_1lQRFNxhPAEYkE5fgIFr3FNVINHh4vu3TfCtyuE" && \
 	poetry run python app.py
 
