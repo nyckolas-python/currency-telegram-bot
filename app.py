@@ -16,19 +16,18 @@ TELEGRAM_API_TOKEN = os.getenv("TELEGRAM_API_TOKEN")
 MONOBANK_API_TOKEN = os.getenv("MONOBANK_API_TOKEN")
 
 # If you need to connect using Proxy:
-# if os.getenv("TELEGRAM_PROXY_URL") != "":
-#     PROXY_URL = os.getenv("TELEGRAM_PROXY_URL")
-#     PROXY_AUTH = aiohttp.BasicAuth(
-#         login=os.getenv("TELEGRAM_PROXY_LOGIN"),
-#         password=os.getenv("TELEGRAM_PROXY_PASSWORD")
-#     )
+PROXY_URL = os.getenv("TELEGRAM_PROXY_URL")
+PROXY_AUTH = aiohttp.BasicAuth(
+    login=os.getenv("TELEGRAM_PROXY_LOGIN"),
+    password=os.getenv("TELEGRAM_PROXY_PASSWORD")
+)
 # Initialize monobank API
 mono = monobank.Client(token=MONOBANK_API_TOKEN)
 currency_info = mono.get_currency()
 
 # Initialize bot and dispatcher
-#bot = Bot(token=API_TOKEN, proxy=PROXY_URL, proxy_auth=PROXY_AUTH)
-bot = Bot(token=TELEGRAM_API_TOKEN)
+bot = Bot(token=TELEGRAM_API_TOKEN, proxy=PROXY_URL, proxy_auth=PROXY_AUTH)
+#bot = Bot(token=TELEGRAM_API_TOKEN)
 dp = Dispatcher(bot)
 
 async def on_startup(_):
