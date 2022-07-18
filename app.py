@@ -5,6 +5,7 @@ import monobank
 import aiohttp
 import schedule
 import time
+import currency
 
 from aiogram import Bot, Dispatcher, executor, types
 
@@ -34,53 +35,56 @@ async def on_startup(_):
     print("Bot AUTH = OK")
     print("Mono AUTH = OK" if currency_info != "" else "Mono AUTH = OUT")
     print("Now Currency Bot Online")
-    print(currency_info)
+    print(currency.parse_currency_info(currency_info))
 
 #'''***************************************CLIENT****************************************'''
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
     """Sends a welcome message and help on the bot"""
     await message.answer(
-        "Привіт, user_name!\n\n"
-        "Я вмію інформувати про курс валюти в Україні\n\n"
-        "Курс на сьогодні: /today\n"
-        "Курс який був вчора: /yesterday\n"
-        "Отримувати курс щодня: /subscribe")
+        f"Привіт, {message.from_user.username}!\n\n"
+        "Я вмію інформувати про Курс валюти в Монобанку\n\n"
+        "Курс в Монобанку на сьогодні: /today\n"
+        "Курс в Монобанку який був вчора: /yesterday\n"
+        "Отримувати Курс в Монобанку щодня: /subscribe")
 
 @dp.message_handler(commands=['today'])
 async def today_rates(message: types.Message):
     """Sends a message with the current exchange rates for today"""
-    await message.answer(
-        "Привіт, user_name!\n\n"
-        "Курс на сьогодні: {currency_info}\n\n"
-        "Курс який був вчора: /yesterday\n"
-        "Отримувати курс щодня: /subscribe")
+    today_currency_info = currency.parse_currency_info(currency_info)
+    answer_messege = f"Привіт, {message.from_user.username}!\n\n" +\
+        "Курс в Монобанку на сьогодні:\n\nUSD - UAH\n" +\
+        f"Покупка: {today_currency_info['rateBuy']} грн.\n" +\
+        f"Продаж: {today_currency_info['rateSell']} грн.\n\n" +\
+        "Курс в Монобанку який був вчора: /yesterday\n" +\
+        "Отримувати Курс в Монобанку щодня: /subscribe"
+    await message.answer(answer_messege)
 
 @dp.message_handler(commands=['yesterday'])
 async def yesterday_rates(message: types.Message):
     """Sends a message with the current exchange rates for today"""
-    await message.answer(
-        "Привіт, user_name!\n\n"
-        "Курс який був вчора: {yesterday_rates}\n\n"
-        "Курс на сьогодні: /today\n" 
-        "Отримувати курс щодня: /subscribe")
+    answer_messege = f"Привіт, {message.from_user.username}!\n\n" +\
+        "Курс в Монобанку який був вчора: {yesterday_rates}\n\n" +\
+        "Курс в Монобанку на сьогодні: /today\n" +\
+        "Отримувати Курс в Монобанку щодня: /subscribe"
+    await message.answer(answer_messege)
 
 @dp.message_handler(commands=['subscribe'])
 async def send_thanks(message: types.Message):
     """Sends a message with the current exchange rates for today"""
-    await message.answer(
+    answer_messege = f"{message.from_user.username}\n\n" +\
         "Дякую за підписку!"
-        )
+    await message.answer(answer_messege)
 
 @dp.message_handler() 
 async def send_reply(message: types.Message):
     """Sends a reply message"""
-    await message.answer(
-        "Привіт, user_name!\n\n"
-        "Я вмію інформувати про курс валюти в Україні\n\n"
-        "Курс на сьогодні: /today\n"
-        "Курс який був вчора: /yesterday\n"
-        "Отримувати курс щодня: /subscribe")
+    answer_messege = f"Привіт, {message.from_user.username}!\n\n" +\
+        "Я вмію інформувати про Курс в Монобанку валюти в Україні\n\n" +\
+        "Курс в Монобанку на сьогодні: /today\n" +\
+        "Курс в Монобанку який був вчора: /yesterday\n" +\
+        "Отримувати Курс в Монобанку щодня: /subscribe"
+    await message.answer(answer_messege)
 #'''***************************************ADMIN*****************************************'''
 
 # def db_load_currency_info():
