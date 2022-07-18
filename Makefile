@@ -4,10 +4,13 @@
 start:
 	export TELEGRAM_API_TOKEN="5233294778:AAHXwcHCYIxTFKXYdiD3WAfGqzH89o1TLYc" && \
 	export MONOBANK_API_TOKEN="uVcD_1lQRFNxhPAEYkE5fgIFr3FNVINHh4vu3TfCtyuE" && \
+	export TELEGRAM_PROXY_URL="http://185.112.12.31:2831" && \
+	export TELEGRAM_PROXY_LOGIN="nyckolaswork5" && \
+	export TELEGRAM_PROXY_PASSWORD="gtbSCMaj" && \
 	poetry run python app.py
 
 update:
-	sudo apt update
+	sudo apt update && poetry update
 
 install:
 	poetry install
