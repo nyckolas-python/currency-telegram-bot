@@ -1,4 +1,7 @@
 # currency-telegram-bot
+
+[@Currency_UA_info_bot](https://t.me/Currency_UA_info_bot)
+
 Is being developed now... A detailed description will appear later.
 
 
